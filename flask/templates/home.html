@@ -1,0 +1,75 @@
+<head>
+    <title>Food Finder</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+    <!--jQuery UI-->
+    <link rel="stylesheet" type="text/css"
+        href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/redmond/jquery-ui.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css"
+        href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.css">
+    <script type="text/javascript"
+        src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+
+<body>
+
+
+    <!-- IMG -->
+    <div class="image">
+        <h1 id="title">FavorFeel</h1>
+        <a href="#" id="logo"><img
+                src="http://localhost:5000/favicon.ico"
+                alt="Food Logo" /></a>
+        <p id="tag">{{msg}}</p>
+    </div>
+
+    <!-- FORM SEARCH -->
+    <div class="form">
+        <form action="/submit" method="post">
+            <label for="form-search"></label>
+            <input type="text" name="form-search" id="form-search"
+                placeholder="What shall we eat today ....">
+            <!-- BUTTONS -->
+            <div class="buttons">
+                <input type="submit" value="Find Shops" id="search">
+            </div>
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="container">
+        <h1>Food Recommendations</h1>
+    
+        <div class="food-info">
+            <h2>{{results[0]['_source']['food_name']}}</h2>
+            <!-- <p><strong>Suggested Keywords:</strong> {{results[0]['_source']['keywords']}}</p> -->
+        </div>
+
+        <div class="cards-container">
+            {% for shop in results[0]['_source']['shops'] %}
+            <div class="card">
+                <h2>{{ shop['shop_name'] }}</h2>
+                <p><strong>Overall Rating:</strong> {{ '%.1f'|format(shop['overall_sentimental_rating']) }}</p>
+                <!-- <div class="comments">
+                    <h3>Comments:</h3>
+                    <ul>
+                        {% for comment in shop['comments'] %}
+                        <li>{{ comment['text'] }} (Rating: {{ comment['sentimental_rating'] }})</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="map" id="map{{ loop.index }}"></div> -->
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</body>

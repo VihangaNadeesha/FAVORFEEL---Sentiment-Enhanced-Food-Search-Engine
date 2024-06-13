@@ -1,0 +1,10 @@
+certifi==2022.12.7
+distlib==0.3.6
+elasticsearch==7.17.8
+filelock==3.9.0
+platformdirs==2.6.2
+urllib3==1.26.13
+virtualenv==20.17.1
+Flask==2.2.2
+Flask-Session==0.4.0
+Werkzeug==2.2.2
